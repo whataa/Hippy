@@ -29,18 +29,20 @@ qb-<official-tag>-<No>[-debug][-SNAPSHOT]
         
 ### 发布记录
 
+#### qb-2.14.1-2
+
+- fix(android): horizontal scroll view smoothScrollToPage crash  
+cb03bf73 maxli <maxli@tencent.com> on 2022/11/22 at 11:06
+
 #### qb-2.14.1-1
 
-- fix(android): fix setTextColor not working
+- fix(android): fix setTextColor not working  
 5b497621 iPel <pel20121221@gmail.com> on 2022/11/3 at 15:40
-committed on 2022/11/7 at 16:03
 
 #### dev-qb-2.14.1.0-linjangyang09211446
 
-- fix(android): empty text node height compatibility
+- fix(android): empty text node height compatibility  
 b919e681 iPel <pel20121221@gmail.com> on 2022/9/20 at 14:39
-committed on 2022/9/20 at 15:57
 
-- fix(core): revert hippy1.x compatible code
+- fix(core): revert hippy1.x compatible code  
 fe187dfd zoomchan-cxj <zoom_chan@163.com> on 2022/9/16 at 18:02
-committed on 2022/9/16 at 18:19
