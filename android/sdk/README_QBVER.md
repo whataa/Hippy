@@ -20,14 +20,22 @@ qb-<official-tag>-<No>[-debug][-SNAPSHOT]
 1. 编译
     1. 带inspector的包：
         1. 修改gradle.properties： V8_COMPONENT=7.7.299.17-qb-debug
-        1. ./gradlew clean assembleRelease
-        1. ./gradlew android-sdk:publishMyPubPublicationToMavenRepository
+        1. ./gradlew --stop
+        1. ./gradlew clean android-sdk:publishMyPubPublicationToMavenRepository
     1. 不带inspector的包：
         1. 修改gradle.properties： V8_COMPONENT=7.7.299.17
-        1. ./gradlew clean assembleRelease
-        1. ./gradlew android-sdk:publishMyPubPublicationToMavenRepository
+        1. ./gradlew --stop
+        1. ./gradlew clean android-sdk:publishMyPubPublicationToMavenRepository
         
 ### 发布记录
+
+#### qb-2.14.1.3
+
+- fix(core): fix the problem of multi-threading at startup time  
+1c494f09 pollyzhang <pollyzhang@tencent.com> on 2022/11/28 at 18:28
+
+- fix(android): fix JSI cause JNI local reference table overflow  
+(cherry picked from commit c7aae48290790f31e8f2783de9ffd390981b4df7)
 
 #### qb-2.14.1-2
 
