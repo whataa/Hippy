@@ -32,7 +32,7 @@ publishing {
             artifactId 'hippysdk'
             version 'qb-2.14.1-2'
             artifact(androidSourcesJar)
-            artifact("$buildDir/outputs/aar/android-sdk.aar")
+            artifact("$buildDir/outputs/aar/android-sdk-release.aar")
             pom.withXml {
                 def dependenciesNode = asNode().appendNode('dependencies')
                 configurations.api.allDependencies.each {
@@ -65,4 +65,55 @@ publishing {
 //            url "file:///Users/niuniuyang/maven/hippyforqb/"
         }
     }
+}
+
+task donwloadBuglySymbolUploadTool() {
+  doFirst {
+    def f = new File(project.buildDir, 'tools/bugly-upload-symbol.jar')
+    f.parentFile.mkdirs()
+    if (!f.exists()) {
+      def url = 'https://mirrors.tencent.com/repository/generic/BuglyTools/SymbolTools/1.0.50/buglyoa-upload-symbol-1.0.50.jar'
+      new URL(url).withInputStream { i -> f.withOutputStream { it << i } }
+    }
+  }
+}
+
+task uploadSymbolToBugly(type: JavaExec) {
+  dependsOn(donwloadBuglySymbolUploadTool)
+  def symbol = new File(project.buildDir, 'intermediates/cmake/release/obj/')
+  def tool = new File(project.buildDir, 'tools/bugly-upload-symbol.jar')
+  classpath = files(tool)
+  args(
+    "-appid", '877476b229',
+    "-appkey", 'ac07633e-3570-488f-a3e2-24682449f030',
+    '-bundleid', 'com.tencent.mtt',
+    '-platform', 'Android',
+    '-inputSymbol', "${symbol.absolutePath}"
+  )
+  doFirst {
+    if (!symbol.exists()) {
+      throw new RuntimeException("not found Symbol at: ${symbol.absolutePath}")
+    }
+    if (!tool.exists()) {
+      throw new RuntimeException("not found SymbolUploadTool at: ${tool.absolutePath}")
+    }
+  }
+}
+
+task cleanupAfterUpload(type: Delete) {
+  dependsOn(uploadSymbolToBugly)
+  delete files(new File(projectDir, 'buglybin'), new File(projectDir, 'cp_buglySymbolAndroid.jar'))
+}
+
+afterEvaluate {
+  android.libraryVariants.all { variant ->
+    if ('release' == variant.buildType.name) {
+      project.tasks.getByName("bundleReleaseAar") { bundleTask ->
+        project.tasks.getByName("publishMyPubPublicationToMavenRepository") { Task publishTask ->
+          publishTask.dependsOn(bundleTask)
+          publishTask.finalizedBy cleanupAfterUpload
+        }
+      }
+    }
+  }
 }
