@@ -9,11 +9,17 @@ ext {
             it.withReader('UTF-8') { p.load(it) }
             MAVEN_USER = p.get('maven_username')
             MAVEN_PWD = p.get('maven_password')
+            bugly_bundle_id = p.get('bugly_bundle_id')
+            bugly_appkey = p.get('bugly_appkey')
+            bugly_appid = p.get('bugly_appid')
             println("=======MAVEN_USER=" + MAVEN_USER + ", MAVEN_PWD=" + MAVEN_PWD)
         }
     } else {
         MAVEN_USER = System.getenv('maven_username')
         MAVEN_PWD = System.getenv('maven_password')
+        bugly_bundle_id = System.getenv('bugly_bundle_id')
+        bugly_appkey = System.getenv('bugly_appkey')
+        bugly_appid = System.getenv('bugly_appid')
     }
 }
 
@@ -84,9 +90,9 @@ task uploadSymbolToBugly(type: JavaExec) {
   def tool = new File(project.buildDir, 'tools/bugly-upload-symbol.jar')
   classpath = files(tool)
   args(
-    "-appid", '877476b229',
-    "-appkey", 'ac07633e-3570-488f-a3e2-24682449f030',
-    '-bundleid', 'com.tencent.mtt',
+    "-appid", bugly_appid,
+    "-appkey", bugly_appkey,
+    '-bundleid', bugly_bundle_id,
     '-platform', 'Android',
     '-inputSymbol', "${symbol.absolutePath}"
   )
