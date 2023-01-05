@@ -15,21 +15,22 @@ qb-<official-tag>-<No>[-debug][-SNAPSHOT]
 ```
 
 ### 发布方式：
-1. 修改 maven_for_qb.gradle 的version字段
-    1. 如果是snapshot，修改 url 增加 `-snapshots` 后缀
 1. 编译
     1. 带inspector的包：
         1. 修改gradle.properties： V8_COMPONENT=7.7.299.17-qb-debug
-        1. ./gradlew --stop
-        1. ./gradlew clean android-sdk:publishMyPubPublicationToMavenRepository
+        1. ./gradlew clean android-sdk:publishMyPubPublicationToMavenRepository --no-daemon
     1. 不带inspector的包：
-        1. 修改gradle.properties： V8_COMPONENT=7.7.299.17
-        1. ./gradlew --stop
-        1. ./gradlew clean android-sdk:publishMyPubPublicationToMavenRepository
+        1. 修改gradle.properties： V8_COMPONENT=7.7.299.17-qb
+        1. ./gradlew clean android-sdk:publishMyPubPublicationToMavenRepository --no-daemon
         
 ### 发布记录
 
-#### qb-2.14.1.3
+#### qb-2.14.1-4
+
+- fix(core): fix reload bug for inspector
+1acb4600 pollyzhang <pollyzhang@tencent.com> on 2022/12/7 at 15:31
+
+#### qb-2.14.1-3
 
 - fix(core): fix the problem of multi-threading at startup time  
 1c494f09 pollyzhang <pollyzhang@tencent.com> on 2022/11/28 at 18:28
