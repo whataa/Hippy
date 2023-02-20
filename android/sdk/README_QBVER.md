@@ -25,9 +25,20 @@ qb-<official-tag>-<No>[-debug][-SNAPSHOT]
         
 ### 发布记录
 
+#### qn-2.14.1-5
+
+- fix(android): remove web url judge in fetchResourceWithUri  
+88f78250 siguangli <siguangli@qq.com> on 2023/1/5 at 16:56
+
+- feat(core): allow all schemas to dynamic load (#2829)  
+4afac8a5 Zoom Chan <zoom_chan@163.com> on 2022/12/29 at 17:35
+
+- feat(core): dynamic loading support custom protocols  
+dbe81e95 pollyzhang <pollyzhang@tencent.com> on 2022/12/27 at 17:34
+
 #### qb-2.14.1-4
 
-- fix(core): fix reload bug for inspector
+- fix(core): fix reload bug for inspector  
 1acb4600 pollyzhang <pollyzhang@tencent.com> on 2022/12/7 at 15:31
 
 #### qb-2.14.1-3
