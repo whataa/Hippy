@@ -21,7 +21,7 @@ ext {
         bugly_appkey = System.getenv('bugly_appkey')
         bugly_appid = System.getenv('bugly_appid')
     }
-    SDK_VERSION = 'qb-2.14.1-5'
+    SDK_VERSION = 'qb-2.14.1-6-debug'
 }
 
 

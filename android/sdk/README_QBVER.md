@@ -25,7 +25,12 @@ qb-<official-tag>-<No>[-debug][-SNAPSHOT]
         
 ### 发布记录
 
-#### qn-2.14.1-5
+#### qb-2.14.1-6
+
+- fix(core):regen source_code_android.cc by current commit  
+6b061b89 linjangyang <linjangyang@tencent.com> on 2023/2/28 at 09:43
+
+#### qb-2.14.1-5
 
 - fix(android): remove web url judge in fetchResourceWithUri  
 88f78250 siguangli <siguangli@qq.com> on 2023/1/5 at 16:56
