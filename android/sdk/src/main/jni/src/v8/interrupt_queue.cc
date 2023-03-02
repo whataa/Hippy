@@ -36,6 +36,7 @@ InterruptQueue::InterruptQueue(v8::Isolate* isolate): isolate_(isolate), task_qu
 }
 
 void InterruptQueue::PostTask(std::unique_ptr<Task> task) {
+#ifndef V8_X5_LITE
   {
     std::lock_guard<std::mutex> lock_guard(queue_mutex_);
     task_queue_.push(std::move(task));
@@ -62,6 +63,7 @@ void InterruptQueue::PostTask(std::unique_ptr<Task> task) {
       queue->Run();
     }
   }, reinterpret_cast<void*>(id_));
+#endif
 }
 
 void InterruptQueue::Run() {

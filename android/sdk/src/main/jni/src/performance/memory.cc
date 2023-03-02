@@ -131,6 +131,7 @@ jboolean GetHeapStatistics(__unused JNIEnv *j_env,
                            __unused jobject j_object,
                            jlong j_runtime_id,
                            jobject j_callback) {
+#ifndef V8_X5_LITE
   TDF_BASE_DLOG(INFO) << "GetHeapStatistics begin, j_runtime_id = " << j_runtime_id;
   auto runtime = Runtime::Find(hippy::base::checked_numeric_cast<jlong, int32_t>(j_runtime_id));
   // callback
@@ -185,6 +186,9 @@ jboolean GetHeapStatistics(__unused JNIEnv *j_env,
   j_env->CallVoidMethod(cb->GetObj(), j_cb_method, hs_obj->GetObj(), nullptr);
   JNIEnvironment::ClearJEnvException(j_env);
   TDF_BASE_DLOG(INFO) << "GetHeapStatistics thread end";
+#else
+  ThrowNoSuchMethodError(j_env, "X5 lite has no GetHeapStatistics method");
+#endif
   return JNI_TRUE;
 }
 // [Heap] GetHeapCodeStatistics
@@ -192,6 +196,7 @@ jboolean GetHeapCodeStatistics(__unused JNIEnv *j_env,
                                __unused jobject j_object,
                                jlong j_runtime_id,
                                jobject j_callback) {
+#ifndef V8_X5_LITE
   TDF_BASE_DLOG(INFO) << "GetHeapCodeStatistics begin, j_runtime_id = " << j_runtime_id;
   auto runtime = Runtime::Find(hippy::base::checked_numeric_cast<jlong, int32_t>(j_runtime_id));
   // callback
@@ -231,6 +236,9 @@ jboolean GetHeapCodeStatistics(__unused JNIEnv *j_env,
   j_env->CallVoidMethod(cb->GetObj(), j_cb_method, hcs_obj->GetObj(), nullptr);
   JNIEnvironment::ClearJEnvException(j_env);
   TDF_BASE_DLOG(INFO) << "GetHeapCodeStatistics thread end";
+#else
+  ThrowNoSuchMethodError(j_env, "X5 lite has no GetHeapCodeStatistics method");
+#endif
   return JNI_TRUE;
 }
 // [Heap] GetHeapSpaceStatistics
@@ -238,6 +246,7 @@ jboolean GetHeapSpaceStatistics(__unused JNIEnv *j_env,
                                 __unused jobject j_object,
                                 jlong j_runtime_id,
                                 jobject j_callback) {
+#ifndef V8_X5_LITE
   TDF_BASE_DLOG(INFO) << "GetHeapSpaceStatistics begin, j_runtime_id = " << j_runtime_id;
   auto runtime = Runtime::Find(hippy::base::checked_numeric_cast<jlong, int32_t>(j_runtime_id));
   // callback
@@ -304,6 +313,9 @@ jboolean GetHeapSpaceStatistics(__unused JNIEnv *j_env,
   j_env->CallVoidMethod(cb->GetObj(), j_cb_method, list_obj->GetObj(), nullptr);
   JNIEnvironment::ClearJEnvException(j_env);
   TDF_BASE_DLOG(INFO) << "GetHeapSpaceStatistics thread end";
+#else
+  ThrowNoSuchMethodError(j_env, "X5 lite has no GetHeapSpaceStatistics method");
+#endif
   return JNI_TRUE;
 }
 // [Heap] WriteHeapSnapshot

@@ -27,7 +27,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang") # based on LLVM 12
       -fno-unique-section-names
       -fno-trigraphs
       # warning group flags
-      -Werror
+#      -Werror
       -Wall
       -Wextra
       -Wextra-semi

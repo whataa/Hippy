@@ -255,9 +255,11 @@ V8VM::V8VM(const std::shared_ptr<V8VMInitParam>& param): VM(param) {
   isolate_ = v8::Isolate::New(create_params_);
   isolate_->Enter();
   isolate_->SetCaptureStackTraceForUncaughtExceptions(true);
+#ifndef V8_X5_LITE
   if (param && param->near_heap_limit_callback) {
     isolate_->AddNearHeapLimitCallback(param->near_heap_limit_callback, param->near_heap_limit_callback_data);
   }
+#endif
   TDF_BASE_DLOG(INFO) << "V8VM end";
 }
 

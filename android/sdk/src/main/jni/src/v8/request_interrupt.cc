@@ -41,6 +41,7 @@ void RequestInterrupt(JNIEnv *j_env,
                       jobject j_object,
                       jlong j_runtime_id,
                       jobject j_callback) {
+#ifndef V8_X5_LITE
   auto runtime = Runtime::Find(hippy::base::checked_numeric_cast<jlong, int32_t>(j_runtime_id));
   TDF_BASE_CHECK(runtime);
   auto cb = std::make_shared<JavaRef>(j_env, j_callback);
@@ -56,6 +57,9 @@ void RequestInterrupt(JNIEnv *j_env,
     JNIEnvironment::ClearJEnvException(j_env);
   };
   interrupt_queue->PostTask(std::move(task));
+#else
+  j_env->ThrowNew(j_env->FindClass("java/lang/NoSuchMethodException" ), "X5 lite has no RequestInterrupt method");
+#endif
 }
 
 

@@ -41,6 +41,7 @@ void AddNearHeapLimitCallback(JNIEnv *j_env,
                       jobject j_object,
                       jlong j_runtime_id,
                       jobject j_callback) {
+#ifndef V8_X5_LITE
   auto runtime_id = hippy::base::checked_numeric_cast<jlong, int32_t>(j_runtime_id);
   auto runtime = Runtime::Find(runtime_id);
   TDF_BASE_CHECK(runtime);
@@ -65,6 +66,9 @@ void AddNearHeapLimitCallback(JNIEnv *j_env,
     TDF_BASE_CHECK(cb);
     return cb(data, current_heap_limit, initial_heap_limit);
   }, reinterpret_cast<void*>(runtime_id));
+#else
+  j_env->ThrowNew(j_env->FindClass("java/lang/NoSuchMethodException" ), "X5 lite has no AddNearHeapLimitCallback method");
+#endif
 }
 
 }

@@ -54,6 +54,7 @@ void GetInternalBinding(const v8::FunctionCallbackInfo<v8::Value>& info);
 struct V8VMInitParam: public VMInitParam {
   size_t initial_heap_size_in_bytes;
   size_t maximum_heap_size_in_bytes;
+#ifndef V8_X5_LITE
   v8::NearHeapLimitCallback near_heap_limit_callback;
   void* near_heap_limit_callback_data;
 
@@ -81,6 +82,7 @@ struct V8VMInitParam: public VMInitParam {
     const size_t kHeapSizeFactor = 2;
     return std::clamp(std::max(current_heap_limit * kHeapSizeFactor, capacity), std::numeric_limits<size_t>::min(), std::numeric_limits<size_t>::max());
   }
+#endif
 };
 
 class V8VM : public VM {

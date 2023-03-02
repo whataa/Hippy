@@ -46,6 +46,7 @@ void MemoryModule::Get(const hippy::napi::CallbackInfo &info) {
   std::shared_ptr<Scope> scope = info.GetScope();
   std::shared_ptr<hippy::napi::V8Ctx>
       ctx = std::static_pointer_cast<hippy::napi::V8Ctx>(scope->GetContext());
+#ifndef V8_X5_LITE
   TDF_BASE_CHECK(ctx);
   v8::Isolate *isolate = ctx->isolate_;
   v8::HandleScope handle_scope(isolate);
@@ -78,5 +79,8 @@ void MemoryModule::Get(const hippy::napi::CallbackInfo &info) {
           {jsNumberOfDetachedContexts, jsNumberOfDetachedContextsValue}
       }
   );
+#else
+  const std::unordered_map<std::shared_ptr<CtxValue>, std::shared_ptr<CtxValue>> map({});
+#endif
   info.GetReturnValue()->Set(ctx->CreateObject(map));
 }

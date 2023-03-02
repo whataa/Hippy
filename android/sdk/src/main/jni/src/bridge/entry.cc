@@ -550,9 +550,11 @@ jlong InitInstance(JNIEnv* j_env,
     } else {
 #endif
       param = std::make_shared<V8VMInitParam>();
+#ifndef V8_X5_LITE
+      param->near_heap_limit_callback = V8VMInitParam::HeapLimitSlowGrowthStrategy;
       param->initial_heap_size_in_bytes = DEFAULT_INITIAL_HEAP_SIZE_IN_BYTES;
       param->maximum_heap_size_in_bytes = DEFAULT_MAX_HEAP_SIZE_IN_BYTES;
-      param->near_heap_limit_callback = V8VMInitParam::HeapLimitSlowGrowthStrategy;
+#endif
     }
   } while (false);
 
