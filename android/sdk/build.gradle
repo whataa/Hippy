@@ -21,7 +21,7 @@
  */
 
 apply plugin: 'com.android.library'
-apply from: './publish.gradle'
+apply from: './maven_for_qb.gradle'
 
 buildscript {
   repositories {
